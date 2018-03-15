@@ -8,6 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -51,4 +53,19 @@ public class main extends JavaPlugin implements Listener{
 		permissionStuff perm = new permissionStuff();
 		Bukkit.broadcastMessage("[" + perm.getRankColor(event.getPlayer()) + perm.getRankName(event.getPlayer()) + ChatColor.WHITE + "] " + event.getPlayer().getName() + " > " +  event.getMessage());
     }
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event){
+		permissionStuff perm = new permissionStuff();
+		if (!(perm.getRankId(event.getPlayer())>4)) {
+			event.setCancelled(true);
+		}
+	}
+	@EventHandler
+	public void onBlockPlace(BlockPlaceEvent event){
+		permissionStuff perm = new permissionStuff();
+		if (!(perm.getRankId(event.getPlayer())>4)) {
+			event.setCancelled(true);
+		}
+	}
+	
 }
